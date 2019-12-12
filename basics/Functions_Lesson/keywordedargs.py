@@ -15,8 +15,8 @@ if __name__=='__main__':
 
     #or
 
-    podium={'second' : 'Verstappen',
-            'first' : 'L.Hamilton',            
+    podium={'first' : 'L.Hamilton', 
+            'second' : 'Verstappen',                       
             'third' : 'Vettel'}
     print(result_F1_unpacking(**podium))
     
