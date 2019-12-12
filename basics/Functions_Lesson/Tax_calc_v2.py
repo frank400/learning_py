@@ -1,5 +1,5 @@
-def calc_final_price(price,calc_tax,*params):
-    return price + price*calc_tax(*params)
+def calc_final_price(price,calc_tax,**params):
+    return price + price*calc_tax(**params)
 
 
 def tax_x(imported):
@@ -12,6 +12,8 @@ def tax_explosive(explosive,mult_fator=1):
 
 if __name__=='__main__':
     price_start=input("enter a price to product: ")
-    final_price=calc_final_price(int(price_start),tax_x,True)
-    final_price=calc_final_price(final_price,tax_explosive,True,1.5)
+    final_price=calc_final_price(int(price_start),tax_x,
+                                                        imported=True)
+    final_price=calc_final_price(final_price,tax_explosive,
+                                                            explosive=True,mult_fator=1.5)
     print(final_price)
