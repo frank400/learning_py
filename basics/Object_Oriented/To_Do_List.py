@@ -1,4 +1,21 @@
 from datetime import datetime
+class Project:
+    def __init__(self,name):
+        self.name=name
+        self.list=[]
+    
+    def __str__(self):
+        return f'{self.name} ({len(self.pendent())} undone task(s))'  
+
+    def add(self,desc):
+        self.list.append(Task(desc))
+    
+    def pendent(self):
+        return [task for task in self.list if not task.done]
+    
+    def search(self,desc):
+        return [task for task in self.list
+                if task.desc==desc][-1]
 
 
 class Task:
@@ -15,13 +32,16 @@ class Task:
 
 
 def main():
-    home=[]
-    home.append(Task('Passar Roupa'))
-    home.append(Task('Lavar Prato'))
+    home=Project('build a house')
+    home.add('build walls')
+    home.add('make the floor')
+    home.add('ceiling')
+    print(home)
 
-    [task.conclude() for task in home if task.desc=='Lavar Prato']
-    for task in home:
+    home.search('make the floor').conclude()
+    for task in home.list:
         print(f'-{task}')
+
 
 
 if __name__=='__main__':
