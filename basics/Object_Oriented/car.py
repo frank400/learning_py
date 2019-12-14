@@ -3,14 +3,14 @@ class Car:
         self.speed=0
         self.max_speed=max_speed
     
-    def accelerate(self,acceleration):
+    def accelerate(self,acceleration=5):
         if self.speed+acceleration >180:
             self.speed=180
         else:
             self.speed += acceleration
         return self.speed
 
-    def breaking(self,delta=0):
+    def breaking(self,delta=5):
         if self.speed-delta <0:
             self.speed=0
         else:
@@ -21,11 +21,7 @@ if __name__=='__main__':
     c1=Car(180)
 
     for _ in range(25):
-        print(c1.accelerate(8))
-        if c1.speed==180:
-            break
+        print(c1.accelerate(8))        
     
     for _ in range(10):
-        print(c1.breaking(delta=20))
-        if c1.speed==0:
-            break
+        print(c1.breaking(delta=20))        
