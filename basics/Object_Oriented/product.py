@@ -29,7 +29,7 @@ if __name__=='__main__':
 
     #second ask
     answer_2=int(input("enter 1 to calculate a discont to this product or 0 if not :"))
-    assert answer_2=1 or answer_2=0
+    assert answer_2==1 or answer_2==0
     if answer_2:
         promotion=input("how much percente of discont do you want? ")
         print(p1.discont(int(promotion)))
