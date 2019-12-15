@@ -6,5 +6,7 @@ class Date:
     def __str__(self):
         return f'{self.day}/{self.month}/{self.year}'
 
-d1=Date(15,12,2019)
-print(d1)
+
+if __name__=='__main__':
+    d1=Date(15,12,2019)
+    print(d1)

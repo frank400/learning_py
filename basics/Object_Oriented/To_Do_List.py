@@ -2,22 +2,22 @@ from datetime import datetime,timedelta
 class Project:
     def __init__(self,name):
         self.name=name
-        self.list=[]
+        self.tasks=[]
 
     def __iter__(self):
-        return self.list.__iter__()
+        return self.tasks.__iter__()
     
     def __str__(self):
         return f'{self.name} ({len(self.pendent())} undone task(s))'  
 
     def add(self,desc,deadline=None):
-        self.list.append(Task(desc,deadline))
+        self.tasks.append(Task(desc,deadline))
     
     def pendent(self):
-        return [task for task in self.list if not task.done]
+        return [task for task in self.tasks if not task.done]
     
     def search(self,desc):
-        return [task for task in self.list
+        return [task for task in self.tasks
                 if task.desc==desc][-1]
 
 
@@ -44,17 +44,28 @@ class Task:
         self.done = True
 
 
+class RecorrentTask(Task):
+    def __init__(self,desc,deadline,days=7):
+        super().__init__(desc,deadline)
+        self.days=days
+    
+    def conclude(self):
+        super().conclude()
+        new_deadline= datetime.now() + timedelta(days= self.days)
+        return RecorrentTask(self.desc,new_deadline,self.days)
+
 def main():
     home=Project('build a house')
-    home.add('build walls',datetime.now()+ timedelta(days=4))
+    home.add('build walls',datetime.now()+  timedelta(days=4))
     home.add('make the floor')
     home.add('ceiling')
+    home.tasks.append(RecorrentTask('make the bed',datetime.now()+timedelta(days=2),3))
+    home.tasks.append(home.search('make the bed').conclude())
     print(home)
 
     home.search('make the floor').conclude()
     for task in home:
         print(f'-{task}')
-
 
 
 if __name__=='__main__':
