@@ -3,5 +3,7 @@ def factorial(x):
         return 1
     return x*factorial(x-1)
 
-x=int(input())
-print(factorial(x))
+    
+if __name__=='__main__':
+    x=int(input())
+    print(factorial(x))

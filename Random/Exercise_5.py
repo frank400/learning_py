@@ -7,7 +7,9 @@ class String:
     
     def printstr(self):
         return self.string.upper()
-    
-x=String()
-x.getStr()
-print(x.printstr())
+
+        
+if __name__=='__main__': 
+    x=String()
+    x.getStr()
+    print(x.printstr())
