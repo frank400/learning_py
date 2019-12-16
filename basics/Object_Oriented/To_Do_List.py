@@ -8,11 +8,19 @@ class Project:
         return self.tasks.__iter__()
     
     def __str__(self):
-        return f'{self.name} ({len(self.pendent())} undone task(s))'  
+        return f'{self.name} ({len(self.pendent())} undone task(s))'
 
-    def add(self,desc,deadline=None):
-        self.tasks.append(Task(desc,deadline))
+    def _add_task(self,task,**kwargs):
+        self.tasks.append(task)
     
+    def _add_new_task(self,desc,**kwargs):
+        self.tasks.append(Task(desc,kwargs.get('deadline',None)))
+
+    def add(self,task,deadline =None,**kwargs):
+        choosed_task=self._add_task if isinstance(task,Task) else self._add_new_task
+        kwargs['deadline']=deadline
+        choosed_task(task,**kwargs)
+        
     def pendent(self):
         return [task for task in self.tasks if not task.done]
     
@@ -59,8 +67,8 @@ def main():
     home.add('build walls',datetime.now()+  timedelta(days=4))
     home.add('make the floor')
     home.add('ceiling')
-    home.tasks.append(RecorrentTask('make the bed',datetime.now()+timedelta(days=2),3))
-    home.tasks.append(home.search('make the bed').conclude())
+    home.add(RecorrentTask('make the bed',datetime.now()+timedelta(days=2),3))
+    home.add(home.search('make the bed').conclude())
     print(home)
 
     home.search('make the floor').conclude()
