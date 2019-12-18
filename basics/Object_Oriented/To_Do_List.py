@@ -86,14 +86,12 @@ def main():
     home.add('ceiling')
 
     home += RecorrentTask('make the bed',datetime.now(),3)
+    
     try:
         home.search('make the bed').conclude()
     except Unfound_task as e:
         print (f'the cause of problem was {str(e)}')
     print(home)
-
-    #
-
 
 
     home.search('make the floor').conclude()
