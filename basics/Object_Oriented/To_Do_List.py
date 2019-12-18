@@ -1,4 +1,8 @@
 from datetime import datetime,timedelta
+
+class Unfound_task(Exception):
+    pass
+
 class Project:
     def __init__(self,name):
         self.name=name
@@ -14,7 +18,7 @@ class Project:
         task.owner=self
         self._add_task(task)
         return self
-        
+
     def _add_task(self,task,**kwargs):
         self.tasks.append(task)
     
@@ -30,8 +34,11 @@ class Project:
         return [task for task in self.tasks if not task.done]
     
     def search(self,desc):
-        return [task for task in self.tasks
-                if task.desc==desc][-1]
+        try:
+            return [task for task in self.tasks
+                    if task.desc==desc][-1]
+        except IndexError as e:
+            raise Unfound_task(str(e))
 
 
 class Task:
@@ -68,17 +75,26 @@ class RecorrentTask(Task):
         new_deadline= datetime.now() + timedelta(days= self.days)
         new_task=RecorrentTask(self.desc,new_deadline,self.days)
         if self.owner:
-            self.owner=new_task
+            self.owner += new_task
         return new_task
 
 def main():
     home=Project('build a house')
+
     home.add('build walls',datetime.now()+  timedelta(days=4))
     home.add('make the floor')
     home.add('ceiling')
-    home.add(RecorrentTask('make the bed',datetime.now()+timedelta(days=2),3))
-    home.add(home.search('make the bed').conclude())
+
+    home += RecorrentTask('make the bed',datetime.now(),3)
+    try:
+        home.search('make the bed').conclude()
+    except Unfound_task as e:
+        print (f'the cause of problem was {str(e)}')
     print(home)
+
+    #
+
+
 
     home.search('make the floor').conclude()
     for task in home:
