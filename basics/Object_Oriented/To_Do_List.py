@@ -9,7 +9,12 @@ class Project:
     
     def __str__(self):
         return f'{self.name} ({len(self.pendent())} undone task(s))'
-
+    
+    def __iadd__(self,task):
+        task.owner=self
+        self._add_task(task)
+        return self
+        
     def _add_task(self,task,**kwargs):
         self.tasks.append(task)
     
@@ -56,11 +61,15 @@ class RecorrentTask(Task):
     def __init__(self,desc,deadline,days=7):
         super().__init__(desc,deadline)
         self.days=days
+        self.owner=None
     
     def conclude(self):
         super().conclude()
         new_deadline= datetime.now() + timedelta(days= self.days)
-        return RecorrentTask(self.desc,new_deadline,self.days)
+        new_task=RecorrentTask(self.desc,new_deadline,self.days)
+        if self.owner:
+            self.owner=new_task
+        return new_task
 
 def main():
     home=Project('build a house')
