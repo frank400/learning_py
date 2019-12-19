@@ -1,5 +1,5 @@
-from seller import Seller
-from client import Client
-from purchase import Purchase
+from .seller import Seller
+from .client import Client
+from .purchase import Purchase
 
-__all__='Seller','Client','Purchase'
+__all__=['Seller','Client','Purchase']
