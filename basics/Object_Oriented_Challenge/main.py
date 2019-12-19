@@ -15,4 +15,6 @@ def main():
     print(f'total value of purchases {total_values}$ in {len(client.purchases)} purchases')
     print(f"last purchase date: {client.get_last_purchase()}")
 
-main()
+    
+if __name__=='__main__':
+    main()
