@@ -3,6 +3,15 @@ class Human:
 
     def __init__(self, name):
         self.name = name
+        self._age=None
+    
+    def get_age(self):
+        return self._age
+    
+    def set_age(self,age):
+        if age<0:
+            raise ValueError('Age must be a positive value')
+        self._age=age
 
     def from_caves(self):
         self.specie = 'homo neanderthalesis'
@@ -28,7 +37,6 @@ class HomoSapiens(Human):
 
 if __name__ == '__main__':
     joseph=HomoSapiens('Joseph')
-    gronk=Neaderthal('Gronk')
-    print(f'Evolution by the class:{",".join(HomoSapiens.species())}')
-    print(f'Evolution by the instance:{",".join(joseph.species())}')
-    print(f'is Joseph evolved? {joseph.is_evolved()}')
+    #joseph.set_age(40)
+    #print(f'joseph age is {joseph.get_age()}')
+    joseph.set_age(-40)
