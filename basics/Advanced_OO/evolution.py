@@ -4,11 +4,12 @@ class Human:
     def __init__(self, name):
         self.name = name
         self._age=None
-    
-    def get_age(self):
+    @property
+    def age(self):
         return self._age
-    
-    def set_age(self,age):
+
+    @age.setter
+    def age(self,age):
         if age<0:
             raise ValueError('Age must be a positive value')
         self._age=age
@@ -37,6 +38,6 @@ class HomoSapiens(Human):
 
 if __name__ == '__main__':
     joseph=HomoSapiens('Joseph')
-    #joseph.set_age(40)
-    #print(f'joseph age is {joseph.get_age()}')
-    joseph.set_age(-40)
+    joseph.age= 40
+    print(f'joseph age is {joseph.age}')
+    
