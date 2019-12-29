@@ -6,9 +6,12 @@ values=(
     {'base':5,'power':4}
 )
 total=tuple(
-    map(
-        lambda value:pow(value['base'],value['power']),values
-    )
+    map(        #for value in values:
+                    #pow(value['base'],value['power'])
+
+        lambda value:pow(value['base'],value['power']),values #<=this last one is for map function
+    )   
+        #lambda function only build the method and recives the values that will be used
 )
 
 def main():
